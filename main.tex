@@ -1,0 +1,112 @@
+\documentclass[
+12pt,
+openright,
+oneside,
+a4paper,
+chapter=TITLE,
+english,
+brazil,
+table
+]{abntex2}
+
+\usepackage{cmap}				% Mapear caracteres especiais no PDF
+\usepackage[utf8]{inputenc} 			% utf8 definition
+\usepackage{lastpage}          			% Usado pela Ficha catalográfica
+\usepackage{indentfirst} 			% Primeiro paragrafo tbm é identado
+\usepackage{color}				% Controle das cores
+\usepackage{mathptmx} 				% usar fonte Times new Roman
+\usepackage{xcolor} 				% Pacote para cores na tabela
+\usepackage{blindtext}				% Lorem ipsum
+
+% identacao de paragrafo
+\setlength{\parindent}{1.25cm}
+
+% fonte dos títulos dos chapters agora é bold
+\renewcommand{\ABNTEXchapterfont}{\fontseries{b}}
+\renewcommand{\ABNTEXsectionfont}{\fontseries{m}}
+\renewcommand{\ABNTEXsubsectionfont}{\fontseries{m}}
+\renewcommand{\ABNTEXsubsubsectionfont}{\fontseries{m}}
+
+% tamanho 12 pra todos os títulos
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+
+% image usage configuration
+\usepackage{graphicx}
+\graphicspath{{imagens/}}
+
+\usepackage[brazilian,hyperpageref]{backref}	 				% Paginas com as citações na bibl
+\usepackage[alf,abnt-full-initials=yes,abnt-title-command=yes]{abntex2cite}	% Citações padrão ABNT
+
+% Change the way to make a reference to a text
+\renewcommand{\backref}{}
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1
+		Nenhuma citação no texto.
+	  	\or
+		Citado na página #2.
+	\else
+		Citado #1 vezes nas páginas #2.
+\fi}
+
+\providecommand\imprimircurso{\erro\curso}
+\newcommand*\curso[1]{\renewcommand{\imprimircurso}{#1}}
+
+\providecommand\imprimirpalavraschave{\erro\palavraschave}
+\newcommand*\palavraschave[1]{\renewcommand{\imprimirpalavraschave}{#1}}
+
+% definir erro de definição
+\newcommand*\erro[1]{\@latex@error{Defina \noexpand#1!}\@ehc}
+
+\include{outros/info}
+
+\include{elem-pre-textuais/capa}
+\include{elem-pre-textuais/folha_de_rosto}
+
+\include{outros/pdf_info}
+
+\newcommand{\bibtextitlecommand}[2]{\textbf{#2}}
+
+\begin{document}
+
+\frenchspacing
+\imprimircapa
+\imprimirfolhaderosto
+\clearpage
+
+\include{elem-pre-textuais/ficha_cartografica}
+\include{elem-pre-textuais/folha_de_aprovacao}
+\include{elem-pre-textuais/agradecimentos}
+\include{elem-pre-textuais/epigrafe}
+\include{elem-pre-textuais/resumo}
+\include{elem-pre-textuais/abstract}
+
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+
+\include{elem-pre-textuais/siglas}
+\include{elem-pre-textuais/simbolos}
+
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+\textual
+
+\include{elem-textuais/introducao}
+\include{elem-textuais/objetivo}
+
+\include{elem-textuais/fundamentos_teoricos}
+\include{elem-textuais/trabalhos_relacionados}
+\include{elem-textuais/desenvolvimento}
+
+\bibliography{referencias}
+
+\end{document}
